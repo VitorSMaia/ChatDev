@@ -170,6 +170,33 @@ make dev
     ```
     检查所有 YAML 文件的语法与 schema 错误。
 
+### 🦞 使用 OpenClaw 运行
+
+OpenClaw 可以与 ChatDev 集成，通过 **调用已有的 agent 团队**，或在 ChatDev 中 **动态创建新的 agent 团队** 来完成任务。
+
+开始使用：
+
+1. 启动 ChatDev 2.0 后端。
+2. 为你的 OpenClaw 实例安装所需的技能：
+
+    ```bash
+    clawdhub install chatdev
+    ```
+
+3. 让 OpenClaw 创建一个 ChatDev 工作流。例如：
+
+  * **自动化信息收集与内容发布**
+
+    ```
+    创建一个 ChatDev 工作流，用于自动收集热点信息，生成一篇小红书文案，并发布该内容
+    ```
+
+  * **多智能体地缘政治模拟**
+
+    ```
+    创建一个 ChatDev 工作流，构建多个 agent，用于模拟中东局势未来可能的发展
+    ```
+
 
 ### 🐳 使用 Docker 运行
 你也可以通过 Docker Compose 运行整个应用。该方式可简化依赖管理，并提供一致的运行环境。
@@ -230,6 +257,8 @@ result = run_workflow(
 if result.final_message:
     print(f"Output: {result.final_message.text_content()}")
 ```
+
+**我们也发布了 ChatDev Python SDK（PyPI 包 `chatdev`）**，便于在 Python 中直接运行 YAML 工作流编排并执行多智能体任务。安装详情与版本说明见 [PyPI：chatdev 0.1.0](https://pypi.org/project/chatdev/0.1.0/)。
 
 ---
 
@@ -298,13 +327,20 @@ if result.final_message:
 #### 贡献者
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/shiowen"><img src="https://github.com/shiowen.png?size=100" width="64px;" alt=""/><br /><sub><b>shiowen</b></sub></a></td>
-    <td align="center"><a href="https://github.com/kilo2127"><img src="https://github.com/kilo2127.png?size=100" width="64px;" alt=""/><br /><sub><b>kilo2127</b></sub></a></td>
-    <td align="center"><a href="https://github.com/AckerlyLau"><img src="https://github.com/AckerlyLau.png?size=100" width="64px;" alt=""/><br /><sub><b>AckerlyLau</b></sub></a></td>
-    <td align="center"><a href="https://github.com/LaansDole"><img src="https://github.com/LaansDole.png?size=100" width="64px;" alt=""/><br /><sub><b>LaansDole</b></sub></a></td>
-    <td align="center"><a href="https://github.com/zivkovicp"><img src="https://github.com/zivkovicp.png?size=100" width="64px;" alt=""/><br /><sub><b>zivkovicp</b></sub></a></td>
-    <td align="center"><a href="https://github.com/rainoeelmae"><img src="https://github.com/rainoeelmae.png?size=100" width="64px;" alt=""/><br /><sub><b>rainoeelmae</b></sub></a></td>
-    <td align="center"><a href="https://github.com/conprour"><img src="https://github.com/conprour.png?size=100" width="64px;" alt=""/><br /><sub><b>conprour</b></sub></a></td>
+    <td align="center"><a href="https://github.com/LaansDole"><img src="https://github.com/LaansDole.png?size=100" width="64px;"/><br /><sub><b>LaansDole</b></sub></a></td>
+    <td align="center"><a href="https://github.com/zivkovicp"><img src="https://github.com/zivkovicp.png?size=100" width="64px;"/><br /><sub><b>zivkovicp</b></sub></a></td>
+    <td align="center"><a href="https://github.com/ACE-Prism"><img src="https://github.com/ACE-Prism.png?size=100" width="64px;"/><br /><sub><b>ACE-Prism</b></sub></a></td>
+    <td align="center"><a href="https://github.com/shiowen"><img src="https://github.com/shiowen.png?size=100" width="64px;"/><br /><sub><b>shiowen</b></sub></a></td>
+    <td align="center"><a href="https://github.com/kilo2127"><img src="https://github.com/kilo2127.png?size=100" width="64px;"/><br /><sub><b>kilo2127</b></sub></a></td>
+    <td align="center"><a href="https://github.com/AckerlyLau"><img src="https://github.com/AckerlyLau.png?size=100" width="64px;"/><br /><sub><b>AckerlyLau</b></sub></a></td>
+    <td align="center"><a href="https://github.com/rainoeelmae"><img src="https://github.com/rainoeelmae.png?size=100" width="64px;"/><br /><sub><b>rainoeelmae</b></sub></a></td>
+    <td align="center"><a href="https://github.com/conprour"><img src="https://github.com/conprour.png?size=100" width="64px;"/><br /><sub><b>conprour</b></sub></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Br1an67"><img src="https://github.com/Br1an67.png?size=100" width="64px;"/><br /><sub><b>Br1an67</b></sub></a></td>
+    <td align="center"><a href="https://github.com/NINE-J"><img src="https://github.com/NINE-J.png?size=100" width="64px;"/><br /><sub><b>NINE-J</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Yanghuabei-design"><img src="https://github.com/Yanghuabei-design.png?size=100" width="64px;"/><br /><sub><b>Yanghuabei</b></sub></a></td>
+  </tr>
 </table>
 
 ## 🤝 致谢

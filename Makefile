@@ -10,7 +10,7 @@ dev: ## Run both backend and frontend development servers
 .PHONY: server
 server: ## Start the backend server in the background
 	@echo "Starting server in background..."
-	@uv run python server_main.py --port 6400 --reload &
+	@uv run python server_main.py --port 6400 &
 
 .PHONY: client
 client: ## Start the frontend development server
@@ -41,6 +41,23 @@ validate-yamls: ## Validate all YAML configuration files
 
 .PHONY: help
 help: ## Display this help message
-	@python -c "import re; \
+	@uv run python -c "import re; \
 	p=r'$(firstword $(MAKEFILE_LIST))'.strip(); \
 	[print(f'{m[0]:<20} {m[1]}') for m in re.findall(r'^([a-zA-Z_-]+):.*?## (.*)$$', open(p, encoding='utf-8').read(), re.M)]" | sort
+
+# ==============================================================================
+# Quality Checks
+# ==============================================================================
+
+.PHONY: check-backend
+check-backend: ## Run backend quality checks (tests + linting)
+	@$(MAKE) backend-tests
+	@$(MAKE) backend-lint
+
+.PHONY: backend-tests
+backend-tests: ## Run backend tests
+	@uv run pytest -v
+
+.PHONY: backend-lint
+backend-lint: ## Run backend linting
+	@uvx ruff check .
