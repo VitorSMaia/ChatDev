@@ -1,0 +1,68 @@
+graph:
+  id: Dev
+  description: 'Workflow de Poesia Corrigido'
+  log_level: DEBUG
+  is_majority_voting: false
+  nodes:
+    - id: Poeta
+      type: agent
+      config:
+        name: gemini-1.5-flash
+        provider: gemini
+        role: |-
+          You are a poet who crafts a modern English poem based on a single word or short phrase.
+          The user will input a word or short phrase. Write a modern English poem inspired by it.
+        base_url: ${BASE_URL}
+        api_key: ${GEMINI_API_KEY}
+        params: {}
+        tooling: []
+        thinking: null
+        memories: []
+        skills: null
+        retry:
+          max_attempts: 3
+          delay: 1
+      description: 'Gera o poema inicial'
+      context_window: 0
+      log_output: true
+    - id: Editor
+      type: agent
+      config:
+        name: gemini-1.5-flash
+        provider: gemini
+        role: "Você é um editor. Traduza o poema recebido para Português Brasileiro e apresente-o de forma elegante."
+        base_url: ${BASE_URL}
+        api_key: ${GEMINI_API_KEY}
+        params: {}
+        tooling: []
+        thinking: null
+        memories: []
+        skills: null
+        retry: null
+      description: 'Traduz e exibe o poema'
+      context_window: 0
+      log_output: true
+  edges:
+    - from: Poeta
+      to: Editor
+      trigger: true
+      condition:
+        type: function
+        config:
+          name: 'true'
+      carry_data: true
+      keep_message: false
+      clear_context: false
+      clear_kept_context: false
+      process: null
+      dynamic: null
+  memory: []
+  initial_instruction: 'faça um poema sobre tecnologia'
+  start:
+    - Poeta
+  end:
+    - Editor
+version: 0.0.0
+vars:
+  GEMINI_API_KEY: AIzaSyDmKrYKGQvMx0MOuR69OXt0vNi1c0mEfpE
+  BASE_URL: https://generativelanguage.googleapis.com

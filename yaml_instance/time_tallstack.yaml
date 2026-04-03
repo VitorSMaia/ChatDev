@@ -1,0 +1,98 @@
+version: 0.0.0
+graph:
+  id: tall_stack_squad
+  description: Workflow de desenvolvimento TALL Stack com Gemini Flash.
+  is_majority_voting: false
+  initial_instruction: Monte uma tela de login utilizando a tallstack. Foque em utilizar o mínimo de tokens possível. A função de login é o mais importante.
+  log_level: INFO
+  start:
+    - Product Owner
+  end:
+    - QA Engineer
+    - DevOps Engineer
+  nodes:
+    - id: Product Owner
+      type: agent
+      config:
+        provider: gemini
+        api_key: ${GEMINI_API_KEY}
+        input_mode: messages
+        name: models/gemini-1.5-flash
+        role: |
+          Você é o Product Owner. Transforme o pedido do usuário em requisitos técnicos para TALL Stack (Laravel, Livewire, Tailwind, Alpine).
+        params:
+          temperature: 0.2
+
+    - id: Backend Developer
+      type: agent
+      config:
+        provider: gemini
+        api_key: ${GEMINI_API_KEY}
+        input_mode: messages
+        name: models/gemini-1.5-flash
+        role: |
+          Você é Backend Sênior. Escreva as Migrations e a Classe Livewire para o login em PHP/Laravel.
+        params:
+          temperature: 0.1
+
+    - id: Frontend Developer
+      type: agent
+      config:
+        provider: gemini
+        api_key: ${GEMINI_API_KEY}
+        input_mode: messages
+        name: models/gemini-1.5-flash
+        role: |
+          Você é Frontend Sênior. Crie a View Blade usando Tailwind CSS e Alpine.js para o formulário de login.
+        params:
+          temperature: 0.2
+
+    - id: QA Engineer
+      type: agent
+      config:
+        provider: gemini
+        api_key: ${GEMINI_API_KEY}
+        input_mode: messages
+        name: models/gemini-1.5-flash
+        role: |
+          Revise o código e garanta que o login funciona conforme o esperado.
+        params:
+          temperature: 0.1
+
+    - id: Human Viewer
+      type: human
+      config:
+        description: Digite ACCEPT para finalizar ou envie ajustes.
+
+    - id: DevOps Engineer
+      type: agent
+      config:
+        provider: gemini
+        api_key: ${GEMINI_API_KEY}
+        input_mode: messages
+        name: models/gemini-1.5-flash
+        role: |
+          Finalize a tarefa preparando as instruções de deploy.
+        params:
+          temperature: 0.1
+
+  edges:
+    - from: Product Owner
+      to: Backend Developer
+    - from: Backend Developer
+      to: Frontend Developer
+    - from: Frontend Developer
+      to: QA Engineer
+    - from: QA Engineer
+      to: Human Viewer
+    - from: QA Engineer
+      to: DevOps Engineer
+      trigger: false
+    - from: Human Viewer
+      to: Frontend Developer
+      trigger: true
+      condition:
+        type: keyword
+        config:
+          none:
+            - ACCEPT
